@@ -1,0 +1,18 @@
+<div class="container">
+  <h1>Converter</h1>
+  <p>Excel columns designations to number:</p>
+  <form [formGroup]="converterForm" >
+    <p>
+      <label for="exelColumn">Letters to number: </label>
+      <input type="text" formControlName="exelColumn" id="exelColumn" (input)='onAlphabetChange($event.target.value)' />
+      <label for="resultLetter">Result: </label>
+      <input type="text" formControlName="result" id="resultLetter" [value]="currentAlphabetValue" readonly />
+    </p>
+    <p>
+      <label for="num">Number to letters: </label>
+      <input type="number" formControlName="num" id="num" (input)='onNumberChange($event.target.value)' min='1'/>
+      <label for="resultNumber">Result: </label>
+      <input type="text" formControlName="result" id="resultNumber" [value]="currentNumber" readonly />
+    </p>
+  </form>
+</div>
