@@ -1,18 +1,38 @@
 <div class="container">
-  <h1>Converter</h1>
-  <p>Excel columns designations to number:</p>
   <form [formGroup]="converterForm" >
-    <p>
-      <label for="exelColumn">Letters to number: </label>
-      <input type="text" formControlName="exelColumn" id="exelColumn" (input)='onAlphabetChange($event.target.value)' />
-      <label for="resultLetter">Result: </label>
-      <input type="text" formControlName="result" id="resultLetter" [value]="currentAlphabetValue" readonly />
-    </p>
-    <p>
-      <label for="num">Number to letters: </label>
-      <input type="number" formControlName="num" id="num" (input)='onNumberChange($event.target.value)' min='1'/>
-      <label for="resultNumber">Result: </label>
-      <input type="text" formControlName="result" id="resultNumber" [value]="currentNumber" readonly />
-    </p>
+      <fieldset>
+          <legend>Converter</legend>
+          <p>Converts Excel columns designations to number and vice-versa.</p>
+          <div class="wrapper">
+          <p>
+            <label for="exelColumn">Letters to number: </label>
+            <input type="text" formControlName="exelColumn" id="exelColumn" (input)='onAlphabetChange($event.target.value)'  placeholder="ABC"/>
+          </p>
+          <p>
+            <label for="resultLetter">Result: </label>
+            <input type="text" formControlName="result" id="resultLetter" [value]="currentAlphabetValue" readonly />
+          </p>
+        </div>
+        <div class="danger" *ngIf='f.exelColumn.errors?.pattern'>
+            It must contain from 1 to 20 letter!
+        </div>
+        <div class="wrapper">
+          <p>
+            <label for="num">Number to letters:  </label>
+            <input type="number" formControlName="num" id="num" (input)='onNumberChange($event.target.value)' min='1' placeholder="123"/>
+          </p>
+            <p>
+            <label for="resultNumber">Result: </label>
+            <input type="text" formControlName="result" id="resultNumber" [value]="currentNumber" readonly />
+          </p>
+        </div>
+        <div class="danger" *ngIf='f.num.errors?.maxlength'>
+            It must contain from 1 to 20 digit!
+        </div>
+        <div class="danger" *ngIf='f.num.errors?.min'>
+            Min value must be 1!
+        </div>
+      </fieldset>
   </form>
 </div>
+

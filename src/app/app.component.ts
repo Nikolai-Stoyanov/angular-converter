@@ -1,5 +1,5 @@
 import { Component, Input, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { isNumber } from 'util';
 
 @Component({
@@ -26,9 +26,9 @@ export class AppComponent {
   //   });
   // }
 
-  // get f() { 
-  //   return this.converterForm.controls; 
-  // }
+  get f() { 
+    return this.converterForm.controls; 
+  }
 
   @Input() currentAlphabetValue: any = ""; 
   @Input() currentNumber: string = "";
@@ -69,7 +69,7 @@ export class AppComponent {
     }
   }
 
-  onNumberChange(val: number): void {
+  onNumberChange(val: number): void {    
 
     this.getLetersFromNumber(val)
     
@@ -79,6 +79,15 @@ export class AppComponent {
 
     this.getNumberFromLetters(input)
     
+  }
+
+  ngOnInit(){
+
+    this.converterForm=this.formBuilder.group({
+      exelColumn: ['', [Validators.pattern(/^[A-z]{1,20}$/)]],
+      num:['', [Validators.min(1), Validators.maxLength(20)]],
+      result:['',[]]
+    })
   }
 
   
