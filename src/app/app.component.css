@@ -1,25 +1,26 @@
 .container {
+    width: 42em;
     margin: 4em auto;
-    display: flex;
     justify-content: center;
     font: 20px/1.5 PT Sans, Helvetica, Verdana, sans-serif;
 }
 
+form {
+    display: flex;
+    flex: 0 0 100%;
+}
+
 fieldset {
     display: block;
+    flex: 0 0 100%;
     border: 2px solid black;
     background: rgb(217, 217, 250);;
     border-radius: 5px;
     margin-bottom: 1em;
 }
 
-p {
-    padding: 1em;
-}
-
 legend {
     font-size: 1.5em;
-    display: inline-block;
     padding: 0.2em;
     margin-left: -0.1em;
     border: 2px solid black;
@@ -27,24 +28,43 @@ legend {
     background: rgb(217, 217, 250);
 }
 
-.wrapper {
-    display: flex;
-    margin-bottom: 0.5em;
+p {
+    padding: 1em 0.5em;
 }
 
-input[type="number"],
-input[type="text"] {
-    outline: none;
-    flex:0 0 50%;
-    padding:  0.2em;
-    border-radius: 5px;
-    background: rgb(239, 239, 239);
-    font-size: 1em;
-    margin-right: 0.2em;
+.wrapper {
+    display: flex;
+    flex: 0 0 100%;
+}
+
+.wrapper p {
+    display: flex;
+}
+
+.wrapper p:first-child {
+    flex: 0 0 50%;
+}
+
+label {
+    margin-right: 0.5em;
+}
+
+input {
+    display: block;
+    font-size: 0.8em;
+    margin-left: auto;
+}
+
+input[type="button"]{
+    display: block;
+    flex: 0 0 100%;
+    padding: 0.2em 1em;
 }
 
 .danger {
     display: block;
     color: red;
     padding: 0.5em 1em;
+    border: 1px solid red;
+    margin: 0.2em;
 }

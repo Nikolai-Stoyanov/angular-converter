@@ -6,11 +6,14 @@
           <div class="wrapper">
           <p>
             <label for="exelColumn">Letters to number: </label>
-            <input type="text" formControlName="exelColumn" id="exelColumn" (input)='onAlphabetChange($event.target.value)'  placeholder="ABC"/>
+            <input type="text"  formControlName="exelColumn" id="exelColumn" (input)='onAlphabetChange($event.target.value)'  placeholder="ABC"/>
           </p>
           <p>
-            <label for="resultLetter">Result: </label>
-            <input type="text" formControlName="result" id="resultLetter" [value]="currentAlphabetValue" readonly />
+            <label for="resultOfNumber">Result: </label>
+            <input type="text" formControlName="resultOfNumber" id="resultOfNumber" [value]="currentNumberValue" readonly />
+          </p>
+          <p>
+            <input type="button" value="Reset" (click)="clearLeterToNumber()">
           </p>
         </div>
         <div class="danger" *ngIf='f.exelColumn.errors?.pattern'>
@@ -22,8 +25,11 @@
             <input type="number" formControlName="num" id="num" (input)='onNumberChange($event.target.value)' min='1' placeholder="123"/>
           </p>
             <p>
-            <label for="resultNumber">Result: </label>
-            <input type="text" formControlName="result" id="resultNumber" [value]="currentNumber" readonly />
+            <label for="resultOfLetter">Result: </label>
+            <input type="text" formControlName="resultOfLetter" id="resultOfLetter" [value]="currentAlphabetValue" readonly />
+          </p>
+          <p>
+            <input type="button" value="Reset" (click)="clearNumberToLeter()">
           </p>
         </div>
         <div class="danger" *ngIf='f.num.errors?.maxlength'>

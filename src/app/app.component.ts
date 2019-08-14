@@ -1,6 +1,5 @@
-import { Component, Input, Renderer2 } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { isNumber } from 'util';
 
 @Component({
   selector: 'app-root',
@@ -11,42 +10,31 @@ import { isNumber } from 'util';
 export class AppComponent {
   form;
   converterForm = new FormGroup({
-    exelColumn: new FormControl(),
-    num: new FormControl(),
-    result: new FormControl()
+    exelColumn: new FormControl('', [Validators.pattern(/^[A-z]{1,20}$/)]),
+    num: new FormControl('', [Validators.min(1), Validators.maxLength(20)]),
+    resultOfNumber: new FormControl(),
+    resultOfLetter: new FormControl()
   });
 
-  // constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) { }
 
-  constructor(private formBuilder: FormBuilder, public renderer: Renderer2) { }
-  // ngOnInit() {
-  //   this.loginForm = this.formBuilder.group({
-  //     username: ['', Validators.required],
-  //     password: ['', Validators.required]
-  //   });
-  // }
-
-  get f() { 
-    return this.converterForm.controls; 
-  }
-
-  @Input() currentAlphabetValue: any = ""; 
-  @Input() currentNumber: string = "";
+  @Input() currentAlphabetValue: string = ""; 
+  @Input() currentNumberValue: any = "";
   
   getLetersFromNumber(val){
-    if (val<1){return this.currentNumber=''}
+    if (val<1){return this.currentAlphabetValue=''}
     let numeric = (val - 1) % 26;
     let letter = String.fromCharCode(65 + numeric);
     let num2 = Math.floor((val - 1) / 26);
     if (num2 > 0) {
-      return this.currentNumber=this.getLetersFromNumber(num2)+letter;
+      return this.currentAlphabetValue=this.getLetersFromNumber(num2)+letter;
     }else {
-      return this.currentNumber=letter;
+      return this.currentAlphabetValue=letter;
     }
   }
 
   getNumberFromLetters(input){
-    
+    if (input==""){return this.currentNumberValue=''}
     let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let resultAlphabet= 0;
     let val = input.toUpperCase();
@@ -63,9 +51,9 @@ export class AppComponent {
     }
 
     if (isTrue) {
-      this.currentAlphabetValue = resultAlphabet;
+      this.currentNumberValue = resultAlphabet;
     }else{
-      this.currentAlphabetValue = "";
+      this.currentNumberValue = "";
     }
   }
 
@@ -81,17 +69,17 @@ export class AppComponent {
     
   }
 
-  ngOnInit(){
-
-    this.converterForm=this.formBuilder.group({
-      exelColumn: ['', [Validators.pattern(/^[A-z]{1,20}$/)]],
-      num:['', [Validators.min(1), Validators.maxLength(20)]],
-      result:['',[]]
-    })
+  clearLeterToNumber(){
+    this.converterForm.get('exelColumn').reset();
+    this.converterForm.get('resultOfNumber').setValue('');
   }
 
-  
+  clearNumberToLeter(){
+    this.converterForm.get('num').reset();
+    this.converterForm.get('resultOfLetter').setValue('');
+  }
 
-  onSubmit() {}
-
+  get f() { 
+    return this.converterForm.controls; 
+  }
 }
